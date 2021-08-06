@@ -1,0 +1,75 @@
+import { useContext, useEffect, useState } from "react";
+import Modal from "react-modal";
+
+import CartContext from "../../context/cart/CartContext";
+import { HeaderCart, BodyCart, OverallCart, ButtonCart } from "./styles";
+
+import { convertPriceBRL, notificationDefault } from '../../utils'
+
+import { CartProducts } from './CartProducts'
+import closeImg from '../assets/button-close.svg'
+
+export function ShoppingCart({ isOpen, onRequestClose }) {
+    const { cartItems, totalPriceTruffle, total, addToCart } = useContext(CartContext);
+    const limitPrice = (1000 / 100)
+
+    useEffect(() => {
+        const totalPrice = cartItems.reduce((prevVal, elem) => prevVal + elem.price, 0)
+        totalPriceTruffle(totalPrice)
+    }, [cartItems])
+
+    function textFreeShipping() {
+        if (total > limitPrice) {
+            return (
+                <h3>Parabéns, sua compra tem frete grátis</h3>
+            )
+        }
+    }
+
+    function finishPurchase() {
+        cartItems.splice(0, cartItems.length)
+        onRequestClose()
+        notificationDefault()
+    }
+
+    return (
+        <>
+            <Modal
+                isOpen={isOpen}
+                onRequestClose={onRequestClose}
+                overlayClassName="react-modal-overlay"
+                className="react-modal-content"
+            >
+                <button
+                    type="button"
+                    onClick={onRequestClose}
+                    className="react-modal-close"
+                >
+                    <img src={closeImg} alt="Fechar modal" />
+                </button>
+
+                <HeaderCart>Meu carrinho</HeaderCart>
+                {cartItems.length > 0 ? (
+                    <>
+                        <BodyCart>
+                            {cartItems?.map(items => (
+                                <CartProducts prod={items} />
+                            ))}
+                        </BodyCart>
+                        <OverallCart>
+                            <div>
+                                <h4>Total</h4>
+                                <h4>{convertPriceBRL(total)}</h4>
+                            </div>
+                            {textFreeShipping()}
+                        </OverallCart>
+                        <ButtonCart>
+                            <button onClick={() => finishPurchase()}>Finalizar compra</button>
+                        </ButtonCart>
+                    </>) :
+                    <h1>O carrinho está vazio </h1>}
+            </Modal>
+
+        </>
+    )
+}
