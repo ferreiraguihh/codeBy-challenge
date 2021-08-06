@@ -5,6 +5,8 @@ export const GlobalStyle = createGlobalStyle`
      --green: #33CC95;
      --green-light: #bae2d4;
 
+     --wheat: #f5deb3;
+
      --red: #E52E4D;
      --blue: #5429CC;
      --dark-blue: #1d1f27;
@@ -134,6 +136,13 @@ export const GlobalStyle = createGlobalStyle`
         &:hover{
             filter: brightness(0.8);
         }
+    }
+
+    img{
+    width: 65%;
+    height: 65%;
+    object-fit: cover;
+    object-position: center;
     }
 `
 export const Container = styled.main`

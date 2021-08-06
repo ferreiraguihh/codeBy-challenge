@@ -40,7 +40,7 @@ function App() {
         />
         <AlignProducts>
           {dataProducts.map(prod => (
-            <Products prod={prod} />
+            <Products key={prod.id} prod={prod} />
           ))}
         </AlignProducts>
         <GlobalStyle />

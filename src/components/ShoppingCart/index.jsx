@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import Modal from "react-modal";
 
 import CartContext from "../../context/cart/CartContext";
@@ -10,16 +10,13 @@ import { CartProducts } from './CartProducts'
 import closeImg from '../assets/button-close.svg'
 
 export function ShoppingCart({ isOpen, onRequestClose }) {
-    const { cartItems, totalPriceTruffle, total, addToCart } = useContext(CartContext);
+    const { cartItems } = useContext(CartContext);
     const limitPrice = (1000 / 100)
 
-    useEffect(() => {
-        const totalPrice = cartItems.reduce((prevVal, elem) => prevVal + elem.price, 0)
-        totalPriceTruffle(totalPrice)
-    }, [cartItems])
+    const totalPrice = cartItems.reduce((prevVal, elem) => prevVal + elem.price, 0)
 
     function textFreeShipping() {
-        if (total > limitPrice) {
+        if ((totalPrice/100) > limitPrice) {
             return (
                 <h3>Parabéns, sua compra tem frete grátis</h3>
             )
@@ -39,6 +36,7 @@ export function ShoppingCart({ isOpen, onRequestClose }) {
                 onRequestClose={onRequestClose}
                 overlayClassName="react-modal-overlay"
                 className="react-modal-content"
+                ariaHideApp={false}
             >
                 <button
                     type="button"
@@ -53,13 +51,13 @@ export function ShoppingCart({ isOpen, onRequestClose }) {
                     <>
                         <BodyCart>
                             {cartItems?.map(items => (
-                                <CartProducts prod={items} />
+                                <CartProducts prod={items} key={items.id} />
                             ))}
                         </BodyCart>
                         <OverallCart>
                             <div>
                                 <h4>Total</h4>
-                                <h4>{convertPriceBRL(total)}</h4>
+                                <h4>{convertPriceBRL(totalPrice / 100)}</h4>
                             </div>
                             {textFreeShipping()}
                         </OverallCart>

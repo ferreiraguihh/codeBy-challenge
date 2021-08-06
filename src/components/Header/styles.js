@@ -22,6 +22,7 @@ export const CartIcon = styled.div`
         display: flex;
         align-items: center;
         cursor: pointer;
+        color: white;
 `
 
 export const ItemCount = styled.div`

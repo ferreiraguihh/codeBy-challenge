@@ -1,13 +1,11 @@
 import { useReducer } from "react";
 import CartContext from "./CartContext";
 import CartReducer from "./CartReducer";
-import { ADD_TO_CART, REMOVE_ITEM, TOTAL_PRICE_TRUFFLE, } from "../Types";
+import { ADD_TO_CART, REMOVE_ITEM, TOTAL_PRICE_TRUFFLE } from "../Types";
 
 const CartState = ({ children }) => {
   const initalState = {
     cartItems: [],
-    success: false,
-    warning: false,
     total: 0,
   };
 

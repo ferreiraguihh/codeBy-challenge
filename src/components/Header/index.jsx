@@ -8,7 +8,7 @@ export function Header({ onOpenCartModal }) {
 
     return (
         <Container>
-            <img src={trufa} />
+            <img src={trufa} alt="icone"/>
             <CartIcon onClick={() => onOpenCartModal()}>
                 <i
                     className='fa fa-shopping-cart'

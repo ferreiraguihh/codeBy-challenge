@@ -1,17 +1,12 @@
-import { useState, useEffect } from "react";
 import { useContext } from "react";
 import CartContext from "../../context/cart/CartContext";
 
 import { Container, AmountTruffle } from "./styles";
 import { convertPriceBRL, notificationWarning, notificationSuccess } from '../../utils/index'
 
-import { store } from "react-notifications-component"
-
-
 
 export function Products({ prod }) {
-    const { addToCart, updateToCart, cartItems } = useContext(CartContext);
-    const [itemCartUp, setItemCartUp] = useState(cartItems)
+    const { addToCart, cartItems } = useContext(CartContext);
     const price = (prod.listPrice / 100)
 
 
@@ -21,7 +16,7 @@ export function Products({ prod }) {
             if (filtProdctCart.length > 0) {
                 filtProdctCart[0].quantity = filtProdctCart[0].quantity + 1
                 filtProdctCart[0].price = (filtProdctCart[0].listPrice * filtProdctCart[0].quantity)
-                setItemCartUp(...cartItems, filtProdctCart)
+                cartItems.reduce((prevVal, elem) => prevVal + elem.price, 0)
             } else {
                 addToCart(prod)
             }
@@ -32,7 +27,7 @@ export function Products({ prod }) {
     }
     return (
         <Container>
-            <img src={prod.imageUrl} />
+            <img src={prod.imageUrl} alt="truffle" />
             <div>
                 <h4>{prod.name}</h4>
                 <p>{convertPriceBRL(price)}</p>

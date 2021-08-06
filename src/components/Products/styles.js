@@ -5,12 +5,14 @@ export const Container = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
+    color: var(--wheat);
+    border: 2px solid #f5deb363;
+    background-color: rgb(0 0 0 / 50%);
+    box-shadow: 0px 0px 8px #f5deb34d;
+    border-radius: 10px;
 
-    background-color: transparent;
-    border: 1px solid #c0c0c0;
-
-    width: 350px;
-    height: 350px;
+    width: 345px;
+    height: 340px;
 
     padding: 8px 8px;
     margin: 5px 10px 20px;
@@ -34,7 +36,7 @@ export const AmountTruffle = styled.div`
 
     button{
         border: 0px;
-        background-color: var(--green);
+        background-color: var(--wheat);
         color: black;
         padding: 0.50rem;
         border-radius: 5px;
